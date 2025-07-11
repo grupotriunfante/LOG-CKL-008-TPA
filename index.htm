@@ -310,19 +310,32 @@
 <script>
   window.onload = function () {
     const dataInput = document.getElementById("data");
-    const hoje = new Date().toISOString().split("T")[0];
-    dataInput.value = hoje;
-    dataInput.min = hoje;
-    dataInput.max = hoje;
-    dataInput.readOnly = true; // impede que o usuário digite manualmente
+    // Obtém a data e hora local do dispositivo (Campinas, SP, Brasil)
+    const agora = new Date(); 
+    
+    const ano = agora.getFullYear();
+    // Mês é de 0 a 11, por isso somamos 1 e usamos padStart para ter sempre dois dígitos
+    const mes = String(agora.getMonth() + 1).padStart(2, '0'); 
+    // Dia do mês, com padStart para ter sempre dois dígitos
+    const dia = String(agora.getDate()).padStart(2, '0');
+
+    // Formata a data como 'YYYY-MM-DD'
+    const hojeFormatado = `${ano}-${mes}-${dia}`;
+    
+    // Define o valor do campo data para o dia atual
+    dataInput.value = hojeFormatado; 
+    // Restringe a data mínima ao dia atual, impedindo seleção de datas passadas
+    dataInput.min = hojeFormatado;   
+    // Restringe a data máxima ao dia atual, impedindo seleção de datas futuras
+    dataInput.max = hojeFormatado;   
+    // Impede que o usuário digite manualmente no campo
+    dataInput.readOnly = true;       
+    // Impede o clique para abrir o calendário de seleção de data
+    dataInput.style.pointerEvents = 'none'; 
+    // Opcional: Adiciona um estilo visual para indicar que o campo está desabilitado
+    dataInput.style.backgroundColor = '#e9ecef'; 
   };
 </script>
 
-
-
 </body>
-
-
-
-
 </html>
